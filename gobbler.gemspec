@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Gobbler::VERSION
   gem.authors       = ["Daniel McNevin"]
   gem.email         = ["dan@gobbler.com"]
-  gem.description   = %q{TODO: Access to the Gobbler API}
-  gem.summary       = %q{TODO: Access to the Gobbler API}
+  gem.description   = %q{Access to the Gobbler API}
+  gem.summary       = %q{Access to the Gobbler API}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
