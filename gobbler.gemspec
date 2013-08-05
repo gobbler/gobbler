@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["dan@gobbler.com"]
   gem.description   = %q{Access to the Gobbler API}
   gem.summary       = %q{Access to the Gobbler API}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/gobbler/gobbler"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

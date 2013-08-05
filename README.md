@@ -19,6 +19,21 @@ Or install it yourself as:
 
     $ gem install gobbler
 
+## Development
+
+`Gemfile`
+
+    gem "gobbler", path: "~/src/gobbler"
+
+`api.rb`
+
+    require 'bundler/setup'
+    Bundler.require
+
+    Gobbler.config(email: "...", password: "...")
+
+    puts Gobbler::Dashboard.list
+
 ## Usage
 
 TODO: Write usage instructions here
