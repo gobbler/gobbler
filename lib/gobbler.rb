@@ -27,6 +27,11 @@ module Gobbler
     @@config = {}
     @@keys = {}
 
+    # Set the configuration
+    # 
+    # Options are passed as a Hash of symbols
+    # @option opts [String] :email Email of Gobbler account
+    # @option opts [String] :password Password of Gobbler account
     def config(opts)
       opts.each {|k,v| opts[k.to_sym] ||= opts[k]}
       @@config = opts
@@ -36,6 +41,7 @@ module Gobbler
       login! if opts[:email] && opts[:password]
     end
 
+    # @return [Boolean] Login successful, will raise an error if it was not
     def login!
       raise "No credentials" if @@config[:email].nil? || @@config[:password].nil?
 
@@ -55,8 +61,11 @@ module Gobbler
       @@keys[:client_key] = response["client_key"]
 
       raise "Can't Login" if @@keys[:client_key].nil?
+
+      return true
     end
 
+    # @return [Hash] Hash from the JSON API server response
     def request(uri, body = nil)
       uri = URI.parse("https://#{api_server}/#{uri}")
       http = Net::HTTP.new(uri.host, uri.port)
@@ -80,6 +89,7 @@ module Gobbler
       JSON.parse(response.body).merge(http_response: response)
     end
 
+    # @return [Hash] The unpacked JSON string
     def unpack(str)
       return [] if str.nil? || str == ""
       decoded = Base64.decode64(str)
@@ -87,6 +97,7 @@ module Gobbler
       JSON.parse(unzipped)
     end
 
+    # @return [Boolean] If you are currently signed into the Gobbler API
     def signed_in?
       !client_key.nil? && client_key != ""
     end

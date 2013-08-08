@@ -1,9 +1,6 @@
 # Gobbler
 
-Access to Gobbler API
-
-_PLEASE NOTE_: This should only be used for testing for now. It's only
-an experiement and could rapidly change and break as we work on it.
+Access to Gobbler API via Ruby
 
 ## Installation
 
@@ -19,29 +16,35 @@ Or install it yourself as:
 
     $ gem install gobbler
 
-## Development
+## Documentation
 
-`Gemfile`
+Documentation is available at [rdoc.info](http://rdoc.info/gems/gobbler/frames)
 
-    gem "gobbler", path: "~/src/gobbler"
+## Exmaple Usage
 
-`api.rb`
+    require 'gobbler'
 
-    require 'bundler/setup'
-    Bundler.require
-
+    ## Set up authentication and sign in
     Gobbler.config(email: "...", password: "...")
 
+    ## Get the high-level metrics for your account
     puts Gobbler::Dashboard.list
 
-## Usage
+    ## Get a list of all project names
+    puts Gobbler.projects.collect(&:name)
 
-TODO: Write usage instructions here
+    ## Get a list of all files in a project
+    project = Gobbler.projects.first
+    checkpoint = project.last_checkpoint
 
-## Contributing
+    checkpoint.assets.each do |asset|
+      puts asset["relative_path"]
+    end
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    ## Get a list of all machines that you have signed into gobbler with
+    puts Gobbler.machines
+
+    ## Get a list of the cities that each of your drives was last seen in
+    Gobbler.volumes.each do |volume|
+      puts "#{volume.volume_name} : #{volume.city}"
+    end

@@ -12,6 +12,8 @@ module Gobbler
 
     def base_attr; json; end
 
+    private
+
     def method_missing(method, *args, &block)
       if base_attr.keys.include?(method.to_s) || method == :assets
         if method == :assets && base_attr.keys.include?("assets_packed")
